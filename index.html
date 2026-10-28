@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đọc Google Sheets by Hoàng</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font: 16px/1.6 system-ui, sans-serif; margin: 0; padding: 32px 16px; background: #f3f6fa; color: #182533; }
+    main { max-width: 1200px; margin: auto; background: white; padding: 28px; border-radius: 16px; }
+    h1 { margin-top: 0; font-size: 26px; }
+    label { display: block; font-weight: 600; }
+    input { width: 100%; padding: 12px; border: 1px solid #a9b8c7; border-radius: 6px; font: inherit; }
+    button { margin-top: 14px; padding: 10px 18px; border: 0; border-radius: 6px; background: #176b45; color: white; font: inherit; cursor: pointer; }
+    button:disabled { opacity: .6; cursor: wait; }
+    .note { color: #536477; font-size: 14px; }
+    #status { white-space: pre-wrap; }
+    #status.error { color: #ad2020; }
+    .table-wrap { overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border-bottom: 1px solid #dbe3eb; padding: 12px; text-align: left; white-space: pre-wrap; min-width: 140px; }
+    th { background: #edf5f1; }
+  </style>
+  <script src="https://www.gstatic.com/charts/loader.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+<main>
+  <h1>Đọc Google Sheets by Hoàng</h1>
+  <p>Dòng 1 làm tiêu đề. Dữ liệu bắt đầu từ dòng 2. Số cột được nhận diện tự động.</p>
+  <form id="sheet-form">
+    <label for="sheet-url">Liên kết Google Sheets</label>
+    <input id="sheet-url" type="url" required placeholder="https://docs.google.com/spreadsheets/d/.../edit?gid=0#gid=0">
+    <label for="sheet-name">Tên tab (không bắt buộc)</label>
+    <input id="sheet-name" type="text" placeholder="Ví dụ: data, Sản phẩm, Tháng 10">
+    <p class="note">Nhập tên tab chính xác để đọc tab đó. Để trống thì dùng gid trong liên kết, mặc định gid=0 khi liên kết không có gid.</p>
+    <button id="load-button" type="submit" disabled>Đọc / tải lại dữ liệu</button>
+  </form>
+  <p class="note">Trong Google Sheets: Chia sẻ → Quyền truy cập chung → Bất kỳ ai có đường liên kết → Người xem. Chỉ dùng file chứa dữ liệu được phép công khai.</p>
+  <p id="status" role="status" aria-live="polite">Đang tải thư viện Google…</p>
+  <p><a id="diagnostic-link" target="_blank" rel="noopener noreferrer" hidden>Mở đường dẫn dữ liệu để kiểm tra</a></p>
+  <div class="table-wrap">
+    <table aria-label="Dữ liệu Google Sheets">
+      <thead id="sheet-head"></thead>
+      <tbody id="sheet-rows"></tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>
